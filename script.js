@@ -8,15 +8,19 @@ const images = [
   { url: "https://picsum.photos/id/239/200/300" },
 ];
 
-btn.addEventListener("click" , (event) => {
-      event.preventDefault()
-  
-     Promise.all(images)
-     .then( (image) => {
-           let img = document.createElement("img")
-           img.src = image.url
-           output.append(img)
-     })
-     .catch( (e) => output.innerText = e)
-})
+function imageDown(image){
+	 return new Promise((resolve,reject) => {
+		      const img = new Image()
+		       img.src = image.url
+		   img.onload = ()=> resolve (img)
+		  img.onerror = () => reject (new Error("failed"))
+ 	 })
+}
 
+function downloadImg(){
+	 Promise.all(images.map(imageDown)).then(img => img.forEach((item) => {
+		        output.appendChild(item)
+	 }).catch(e => console.log(e.message))
+}
+
+btn.addEventListener("click", downloadImg)

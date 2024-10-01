@@ -8,23 +8,15 @@ const images = [
   { url: "https://picsum.photos/id/239/200/300" },
 ];
 
-function loadImg(imagesURL){
-	 return new Promies((resolve, reject) => {
-		    if(imagesURL){
-				resolve output
-			}
-		 else {
-			  reject (e)
-		 }
-	 })
-}
-
-btn.addEventListener("click", () => {
-	 loadImg(images)
-	.then( (output) => {
-		output.innerHTML = `<img src="images"></img>`
-	})
-	.catch( (error) => output.innerText = `Failed to load image's URL: ${image.url}`)
-		
-	}
+btn.addEventListener("click" , (event) => {
+      event.preventDefault()
+  
+     Promise.all(images)
+     .then( (image) => {
+           let img = document.createElement("img")
+           img.src = image.url
+           output.append(img)
+     })
+     .catch( (e) => output.innerText = e)
 })
+

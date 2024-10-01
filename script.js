@@ -20,7 +20,7 @@ function imageDown(image){
 function downloadImg(){
 	 Promise.all(images.map(imageDown)).then(img => {img.forEach((item) => {
 		        output.appendChild(item)
-	 }}).catch(e => console.log(e.message))
+	 })}).catch(e => console.log(e.message))
 }
 
 btn.addEventListener("click", downloadImg)
